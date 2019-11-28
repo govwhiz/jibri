@@ -22,11 +22,16 @@ import org.jitsi.jibri.sink.Sink
 /**
  * [StreamSink] represents a sink which will write to a network stream
  */
-class StreamSink(val url: String, val streamingMaxBitrate: Int, val streamingBufSize: Int) : Sink {
+class StreamSink(val url: String, val streamingMaxBitrate: Int, val streamingBufSize: Int, val videoStreamId: String) : Sink {
     override val path: String = url
-    override val format: String = "flv"
+    override val format: String = "mpegts"
     override val options: Array<String> = arrayOf(
         "-maxrate", "${streamingMaxBitrate}k",
-        "-bufsize", "${streamingBufSize}k"
+        "-minrate", "${streamingMaxBitrate}k",
+        "-bt", "${streamingMaxBitrate}k",
+        "-b", "${streamingMaxBitrate}k",
+        "-bufsize", "${streamingBufSize}k",
+        "-vcodec", "libx264",
+        "-streamid", "0:0x$videoStreamId"
     )
 }

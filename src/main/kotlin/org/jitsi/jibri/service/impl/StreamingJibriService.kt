@@ -31,7 +31,7 @@ import org.jitsi.jibri.status.ErrorScope
 import org.jitsi.jibri.util.extensions.error
 import org.jitsi.jibri.util.whenever
 
-private const val YOUTUBE_URL = "rtmp://a.rtmp.youtube.com/live2"
+private const val STREAMING_URL = "udp://13.68.170.103:1234?pkt_size=1316"
 private const val STREAMING_MAX_BITRATE = 2976
 
 /**
@@ -75,9 +75,10 @@ class StreamingJibriService(
 
     init {
         sink = StreamSink(
-            url = "$YOUTUBE_URL/${streamingParams.youTubeStreamKey}",
+            url = "$STREAMING_URL",
             streamingMaxBitrate = STREAMING_MAX_BITRATE,
-            streamingBufSize = 2 * STREAMING_MAX_BITRATE
+            streamingBufSize = 2 * STREAMING_MAX_BITRATE,
+            videoStreamId = streamingParams.youTubeStreamKey
         )
 
         registerSubComponent(JibriSelenium.COMPONENT_ID, jibriSelenium)
