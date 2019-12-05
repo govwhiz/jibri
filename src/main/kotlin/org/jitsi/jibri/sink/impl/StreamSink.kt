@@ -29,9 +29,10 @@ class StreamSink(val url: String, val streamingMaxBitrate: Int, val streamingBuf
         "-maxrate", "${streamingMaxBitrate}k",
         "-minrate", "${streamingMaxBitrate}k",
         "-bt", "${streamingMaxBitrate}k",
-        "-b", "${streamingMaxBitrate}k",
+        "-b:v", "${streamingMaxBitrate}k",
         "-bufsize", "${streamingBufSize}k",
         "-vcodec", "libx264",
-        "-streamid", "0:0x$videoStreamId"
+        "-streamid", "0:0x$videoStreamId",
+        "-an"
     )
 }
